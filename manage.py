@@ -10,10 +10,6 @@ def local_server():
     os.system("flask run -p 5555 --reload")
 
 
-def local_db_up():
-    os.system("docker-compose -f docker-compose.yml up")
-
-
 def local_db_down():
     os.system("docker-compose -f docker-compose.yml down")
 
