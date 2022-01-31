@@ -51,8 +51,8 @@ class BookApi(MethodView):
             id=id,
             is_deleted=False
         ).first_or_404()
-    
-        new_authors_objects = AuthorModel.query.filter(AuthorModel.id.in_(update_data_scheme.authors))
+
+        new_authors_objects = AuthorModel.query.filter(AuthorModel.id.in_(update_data_scheme.authors)).all()
 
         if not new_authors_objects:
             return jsonify(message=http.HTTPStatus.BAD_REQUEST.phrase), http.HTTPStatus.BAD_REQUEST
