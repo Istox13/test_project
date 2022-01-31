@@ -16,9 +16,6 @@ class BookApi(MethodView):
         with_authors = request.args.get('with_authors', False)
         books_objects = BookModel.query.filter_by(is_deleted=False).all()
 
-        if not books_objects:
-            return jsonify({"items": []}), http.HTTPStatus.OK
-
         if with_authors:
             books = ListBookWithAuthorsModelScheme(items=books_objects)
         else:

@@ -15,10 +15,6 @@ class AuthorApi(MethodView):
 
     def get(self):
         authors_objects = AuthorModel.query.filter_by(is_deleted=False).all()
-
-        if not authors_objects:
-            return jsonify({"items": []}), http.HTTPStatus.OK
-
         authors_scheme = ListAuthorModelScheme(items=authors_objects)
 
         return authors_scheme.json(), http.HTTPStatus.OK
