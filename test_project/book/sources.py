@@ -31,6 +31,9 @@ class BookApi(MethodView):
 
         authors_objects = AuthorModel.query.filter(AuthorModel.id.in_(new_book_scheme.authors)).all()
 
+        if not authors_objects:
+            return jsonify(message=http.HTTPStatus.BAD_REQUEST.phrase), http.HTTPStatus.BAD_REQUEST
+
         new_book_model = BookModel(
             name=new_book_scheme.name,
             number_pages=new_book_scheme.number_pages,
@@ -48,10 +51,15 @@ class BookApi(MethodView):
             id=id,
             is_deleted=False
         ).first_or_404()
+    
+        new_authors_objects = AuthorModel.query.filter(AuthorModel.id.in_(update_data_scheme.authors))
+
+        if not new_authors_objects:
+            return jsonify(message=http.HTTPStatus.BAD_REQUEST.phrase), http.HTTPStatus.BAD_REQUEST
 
         book_object.name = update_data_scheme.name
         book_object.number_pages = update_data_scheme.number_pages
-        book_object.authors = AuthorModel.query.filter(AuthorModel.id.in_(update_data_scheme.authors))
+        book_object.authors = new_authors_objects
 
         db.session.commit()
 
