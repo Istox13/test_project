@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 JSON_SORT_KEYS = False
 JSONIFY_MIMETYPE = "application/json"
-DEBUG = os.environ.get("DEBUG", True)
+DEBUG = os.environ.get("DEBUG", False)
 CORS = os.environ.get("CORS", False)
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
